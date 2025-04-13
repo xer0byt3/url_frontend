@@ -62,7 +62,7 @@ const Analytics = () => {
                 <tbody>
                     {data.map((item) => (
                         <tr key={item.short_id}>
-                            <td>{`http://localhost:3000/${item.short_id}`}</td>
+                            <td>{apiUrl+`${item.short_id}`}</td>
                             <td>{item.long_url}</td>
                             <td>{item.click_count}</td>
                             <td>
