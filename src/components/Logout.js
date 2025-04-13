@@ -8,10 +8,10 @@ export const Logout = () => {
     const { setIsAuthenticated } = useContext(AuthContext);
     const apiUrl = process.env.REACT_APP_API_URL;
 
+    console.log("log api",apiUrl);
     useEffect(() => {
         const logoutUser = async () => {
             try {
-                console.log("log api",apiUrl);
                 await fetch(apiUrl+'auth/jwt/logout/', {
                     method: 'POST',
                     headers: {
