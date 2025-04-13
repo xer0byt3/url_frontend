@@ -7,6 +7,7 @@ const Analytics = () => {
     const [data, setData] = useState([]);
     const navigate = useNavigate();
     const apiUrl = process.env.REACT_APP_API_URL;
+    const baseUrl = process.env.REACT_APP_BASE_URL;
 
 
     useEffect(() => {
@@ -30,12 +31,12 @@ const Analytics = () => {
             }
         };
         fetchData();
-    }, [navigate,apiUrl]);
+    }, [navigate, apiUrl]);
 
     const handleDelete = async (short_id) => {
         try {
             const token = localStorage.getItem('access_token');
-            await axios.delete(apiUrl+`api/urls/${short_id}`, {
+            await axios.delete(apiUrl + `api/urls/${short_id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -62,7 +63,7 @@ const Analytics = () => {
                 <tbody>
                     {data.map((item) => (
                         <tr key={item.short_id}>
-                            <td>{apiUrl+`${item.short_id}`}</td>
+                            <td>{baseUrl + `${item.short_id}`}</td>
                             <td>{item.long_url}</td>
                             <td>{item.click_count}</td>
                             <td>

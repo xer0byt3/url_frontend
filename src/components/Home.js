@@ -18,7 +18,7 @@ export const Home = () => {
             (async () => {
                 try {
                     console.log(localStorage.getItem('access_token'));
-                    const { data } = await axios.get(apiUrl+'authenticated-route', {
+                    const { data } = await axios.get(apiUrl + 'authenticated-route', {
                         headers: {
                             'Content-Type': 'application/json',
                             'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
@@ -27,12 +27,12 @@ export const Home = () => {
                     });
                     setMessage(data.message);
                 } catch (e) {
-                    console.log('not auth');
+                    console.log('not auth', e);
                     navigate('/login');
                 }
             })();
         }
-    }, [navigate,apiUrl]);
+    }, [navigate, apiUrl]);
 
     return (
         <div>
@@ -40,7 +40,7 @@ export const Home = () => {
                 <h3>{message}</h3>
             </div>
             <ShortenURL />
-            {shortId && <Analytics shortId={shortId} />} 
+            {shortId && <Analytics shortId={shortId} />}
         </div>
     );
 };
