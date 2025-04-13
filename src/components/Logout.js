@@ -11,6 +11,7 @@ export const Logout = () => {
     useEffect(() => {
         const logoutUser = async () => {
             try {
+                console.log("log api",apiUrl);
                 await fetch(apiUrl+'auth/jwt/logout/', {
                     method: 'POST',
                     headers: {
