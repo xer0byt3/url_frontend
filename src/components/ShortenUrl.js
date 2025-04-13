@@ -7,6 +7,7 @@ export const ShortenURL = () => {
     const [shortURL, setShortURL] = useState('');
     const [error, setError] = useState('');
     const apiUrl = process.env.REACT_APP_API_URL;
+    const baseUrl = process.env.REACT_APP_BASE_URL;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -16,7 +17,7 @@ export const ShortenURL = () => {
                 withCredentials: true
             });
 
-            let shortURL_parse = apiUrl + response.data.url;
+            let shortURL_parse = baseUrl + response.data.url;
 
             setShortURL(shortURL_parse);
             setError('');
