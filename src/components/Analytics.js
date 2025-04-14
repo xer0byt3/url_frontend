@@ -24,9 +24,13 @@ const Analytics = () => {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 });
+
                 setData(response.data);
             } catch (error) {
-
+                if (error.response && error.response.status === 401) {
+                    console.error('Unauthorized, redirecting to login');
+                    navigate('/login');
+                }
                 console.error('Error fetching data:', error);
             }
         };
@@ -44,6 +48,10 @@ const Analytics = () => {
             });
             setData(data.filter(item => item.short_id !== short_id));
         } catch (error) {
+            if (error.response && error.response.status === 401) {
+                console.error('Unauthorized, redirecting to login');
+                navigate('/login');
+            }
             console.error('Error deleting URL:', error);
         }
     };

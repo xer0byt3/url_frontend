@@ -1,4 +1,4 @@
-import React, { useState,useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
@@ -20,8 +20,7 @@ export const Login = () => {
       formData.append('password', password);
       const apiUrl = process.env.REACT_APP_API_URL;
 
-
-      const response = await axios.post(apiUrl+'auth/jwt/login',
+      const response = await axios.post(apiUrl + 'auth/jwt/login',
         formData,
         {
           headers: {

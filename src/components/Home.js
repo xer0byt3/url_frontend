@@ -1,46 +1,31 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
 import { ShortenURL } from "./ShortenUrl";
-import Analytics from "./Analytics";
-import { useNavigate } from 'react-router-dom';
-
+import { useContext, useEffect } from "react";
+import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export const Home = () => {
-    const [message, setMessage] = useState('');
-    const [shortId] = useState('');
+
+    const { isAuthenticated, loading } = useContext(AuthContext);
     const navigate = useNavigate();
-    const apiUrl = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
-        if (localStorage.getItem('access_token') === null) {
+        if (loading) return;
+
+        const token = localStorage.getItem('access_token');
+        if (!token) {
+            console.log("no token");
             navigate('/login');
-        } else {
-            (async () => {
-                try {
-                    console.log(localStorage.getItem('access_token'));
-                    const { data } = await axios.get(apiUrl + 'authenticated-route', {
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
-                        },
-                        withCredentials: true,
-                    });
-                    setMessage(data.message);
-                } catch (e) {
-                    console.log('not auth', e);
-                    navigate('/login');
-                }
-            })();
         }
-    }, [navigate, apiUrl]);
+        if (!isAuthenticated) {
+            console.log("not authenticated");
+            navigate('/login');
+        }
+    }
+        , [navigate, isAuthenticated, loading]);
 
     return (
         <div>
-            <div className="form-signin mt-5 text-center">
-                <h3>{message}</h3>
-            </div>
             <ShortenURL />
-            {shortId && <Analytics shortId={shortId} />}
         </div>
     );
 };
