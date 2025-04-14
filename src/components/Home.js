@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 export const Home = () => {
 
     const { isAuthenticated, loading } = useContext(AuthContext);
+
     const navigate = useNavigate();
 
     useEffect(() => {
